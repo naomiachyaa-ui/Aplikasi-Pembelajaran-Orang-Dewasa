@@ -5,31 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Learn | Premium Adult Learning</title>
     
-    <!-- Fonts: Playfair Display (Serif/Luxury) & Inter (Sans/Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#112240',      /* Deep Navy for contrast & text */
-                            navyLight: '#1E3A5F', /* Lighter Navy for hovers */
-                            gold: '#C5A880',      /* Soft Gold for accents/luxury feel */
-                            goldLight: '#E8D8C3', /* Very pale gold for backgrounds */
-                            beige: '#F9F8F6',     /* Warm off-white background */
-                            white: '#FFFFFF',     /* Pure white for cards */
-                            gray: '#8892B0',      /* Soft text */
+                            navy: '#112240',
+                            navyLight: '#1E3A5F',
+                            gold: '#C5A880',
+                            goldLight: '#E8D8C3',
+                            beige: '#F9F8F6',
+                            white: '#FFFFFF',
+                            gray: '#8892B0',
                         }
                     },
                     fontFamily: {
@@ -46,49 +42,54 @@
     </script>
 
     <style>
-        /* Custom Scrollbar for a cleaner look */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F9F8F6;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #E8D8C3;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #C5A880;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F9F8F6; }
+        ::-webkit-scrollbar-thumb { background: #E8D8C3; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
 
-        body {
-            background-color: #F9F8F6;
-            color: #112240;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
+        body { background-color: #F9F8F6; color: #112240; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Subtle pattern for dashboard top */
         .bg-pattern {
             background-image: radial-gradient(#C5A880 0.5px, transparent 0.5px);
             background-size: 20px 20px;
             background-color: #112240;
         }
+
+        /* Gaya khusus untuk input nama agar menyatu dengan desain */
+        .input-nama-edit {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: inherit;
+            color: #112240;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 1px dashed transparent;
+            transition: all 0.2s;
+        }
+        .input-nama-edit:hover {
+            border-bottom-color: #C5A880;
+        }
+        .input-nama-edit:focus {
+            border-bottom: 1px solid #C5A880;
+            background: #fff;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="font-sans antialiased h-screen flex flex-col md:flex-row overflow-hidden">
 
-    <!-- Sidebar (Desktop) / Bottom Nav (Mobile) -->
     <nav class="bg-brand-white border-r border-gray-100 w-full md:w-64 flex-shrink-0 z-50 flex md:flex-col justify-between md:justify-start fixed md:static bottom-0 left-0 right-0 h-16 md:h-full shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:shadow-none">
         
-        <!-- Logo Area (Desktop only) -->
         <div class="hidden md:flex items-center gap-3 px-8 py-8 border-b border-gray-50">
             <div class="w-8 h-8 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold">
                 <i data-lucide="gem" class="w-4 h-4"></i>
@@ -96,56 +97,50 @@
             <span class="font-serif font-semibold text-xl tracking-wide text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
         </div>
 
-        <!-- Navigation Links -->
         <div class="flex md:flex-col w-full md:w-auto justify-around md:justify-start md:px-4 md:py-6 gap-1 md:gap-2 h-full items-center md:items-stretch">
-            
             <button onclick="navigate('dashboard')" id="nav-dashboard" class="nav-btn active flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-brand-navy bg-brand-goldLight/30 font-medium transition-all duration-300 w-full md:w-auto">
                 <i data-lucide="layout-dashboard" class="w-5 h-5 md:w-5 md:h-5"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Beranda</span>
             </button>
-
             <button onclick="navigate('courses')" id="nav-courses" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
                 <i data-lucide="book-open" class="w-5 h-5 md:w-5 md:h-5"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Materi</span>
             </button>
-
             <button onclick="navigate('quiz')" id="nav-quiz" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
                 <i data-lucide="brain-circuit" class="w-5 h-5 md:w-5 md:h-5"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Kuis</span>
             </button>
-
             <button onclick="navigate('progress')" id="nav-progress" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
                 <i data-lucide="trending-up" class="w-5 h-5 md:w-5 md:h-5"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Progres</span>
             </button>
         </div>
 
-        <!-- User Profile (Desktop bottom) -->
         <div class="hidden md:flex mt-auto p-6 border-t border-gray-50 items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold">
+            <div class="w-10 h-10 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold" id="userInitial">
                 A
             </div>
-            <div>
-                <p class="text-sm font-medium text-brand-navy">Adrian Pratama</p>
+            <div class="flex-1 overflow-hidden">
+                <input type="text" id="inputNamaSidebar" value="Adrian Pratama" 
+                    class="input-nama-edit text-sm" 
+                    oninput="sinkronkanNama(this.value)" 
+                    onblur="simpanNama(this.value)"
+                    title="Klik untuk ganti nama">
                 <p class="text-xs text-gray">Premium Member</p>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
     <main class="flex-1 h-full overflow-y-auto pb-20 md:pb-0 relative bg-brand-beige">
         
-        <!-- TOP HEADER FOR MOBILE -->
         <div class="md:hidden bg-brand-white px-6 py-4 flex justify-between items-center sticky top-0 z-40 border-b border-gray-100">
             <span class="font-serif font-semibold text-lg text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
-            <div class="w-8 h-8 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold text-sm">
+            <div class="w-8 h-8 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold text-sm" id="userInitialMobile">
                 A
             </div>
         </div>
 
-        <!-- ==================== VIEW: DASHBOARD ==================== -->
         <section id="view-dashboard" class="view-section block fade-in min-h-full">
-            <!-- Hero Banner -->
             <div class="bg-pattern text-brand-white px-8 md:px-12 pt-12 pb-16 md:pb-20 relative overflow-hidden">
                 <div class="absolute top-0 right-0 opacity-10 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
                     <i data-lucide="compass" class="w-64 h-64 text-brand-gold"></i>
@@ -153,7 +148,7 @@
                 
                 <div class="relative z-10 max-w-4xl mx-auto">
                     <p class="text-brand-gold font-medium tracking-widest text-xs uppercase mb-3">Dashboard Utama</p>
-                    <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl mb-2">Selamat Pagi, Adrian.</h1>
+                    <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl mb-2">Selamat Pagi, <span id="namaSapaan">Adrian</span>.</h1>
                     <p class="text-gray-300 font-light max-w-lg text-sm md:text-base leading-relaxed">
                         Pertumbuhan diri adalah investasi terbaik. Mari lanjutkan perjalanan Anda menuju versi yang lebih baik hari ini.
                     </p>
@@ -161,10 +156,7 @@
             </div>
 
             <div class="max-w-5xl mx-auto px-6 md:px-12 -mt-8 relative z-20 space-y-8 pb-12">
-                
-                <!-- Quote & Stats Row -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Quote Card -->
                     <div class="lg:col-span-2 bg-brand-white rounded-2xl p-8 shadow-premium border border-gray-50 flex flex-col justify-center relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
                         <i data-lucide="quote" class="text-brand-goldLight w-8 h-8 mb-4"></i>
@@ -173,559 +165,7 @@
                         </blockquote>
                         <p class="text-sm text-gray font-medium tracking-wide uppercase">— C. S. Dweck</p>
                     </div>
-
-                    <!-- Mini Stats -->
                     <div class="bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50 flex flex-col justify-between gap-4">
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-medium text-gray uppercase tracking-wider">Level Anda</span>
                             <i data-lucide="award" class="w-5 h-5 text-brand-gold"></i>
-                        </div>
-                        <div>
-                            <p class="font-serif text-3xl text-brand-navy mb-1" id="dash-level">Eksekutif</p>
-                            <p class="text-sm text-brand-gold font-medium"><span id="dash-points">1,250</span> Poin Elit</p>
-                        </div>
-                        <div class="w-full bg-brand-beige rounded-full h-1.5 mt-2">
-                            <div class="bg-brand-navy h-1.5 rounded-full" style="width: 65%"></div>
-                        </div>
-                        <p class="text-xs text-right text-gray mt-1">350 poin menuju Master</p>
-                    </div>
-                </div>
-
-                <!-- Continue Learning -->
-                <div>
-                    <div class="flex justify-between items-end mb-4">
-                        <h2 class="font-serif text-2xl text-brand-navy">Lanjutkan Pembelajaran</h2>
-                        <button onclick="navigate('courses')" class="text-sm text-brand-gold hover:text-brand-navy transition-colors font-medium flex items-center gap-1">
-                            Lihat Semua <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50 flex flex-col md:flex-row items-start md:items-center gap-6 cursor-pointer hover:shadow-premium-hover transition-shadow group" onclick="navigate('courses')">
-                        <div class="w-16 h-16 rounded-xl bg-brand-goldLight/30 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-goldLight/50 transition-colors">
-                            <i data-lucide="briefcase" class="w-8 h-8 text-brand-navy"></i>
-                        </div>
-                        <div class="flex-1">
-                            <span class="text-xs font-medium text-brand-gold uppercase tracking-wider mb-1 block">Komunikasi Profesional</span>
-                            <h3 class="font-serif text-xl text-brand-navy mb-2">Seni Negosiasi Elegan</h3>
-                            <div class="flex items-center gap-4 text-sm text-gray">
-                                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-4 h-4"></i> 15 Min tersisa</span>
-                                <span class="flex items-center gap-1"><i data-lucide="book-open" class="w-4 h-4"></i> Modul 3 dari 5</span>
-                            </div>
-                        </div>
-                        <div class="w-full md:w-48">
-                            <div class="flex justify-between text-xs mb-2">
-                                <span class="text-gray">Progres</span>
-                                <span class="font-medium text-brand-navy">60%</span>
-                            </div>
-                            <div class="w-full bg-brand-beige rounded-full h-1">
-                                <div class="bg-brand-gold h-1 rounded-full transition-all duration-1000" style="width: 60%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ==================== VIEW: COURSES ==================== -->
-        <section id="view-courses" class="view-section hidden fade-in max-w-6xl mx-auto px-6 md:px-12 py-10">
-            <div class="mb-10 text-center max-w-2xl mx-auto">
-                <span class="text-brand-gold font-medium tracking-widest text-xs uppercase mb-2 block">Katalog Eksklusif</span>
-                <h1 class="font-serif text-3xl md:text-4xl text-brand-navy mb-4">Perluas Wawasan Anda</h1>
-                <p class="text-gray text-sm md:text-base">Materi kurasi khusus untuk mengembangkan soft skill, manajemen diri, dan wawasan profesional di era modern.</p>
-            </div>
-
-            <!-- Category Filter (Visual only) -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button class="px-5 py-2 rounded-full border border-brand-navy bg-brand-navy text-white text-sm font-medium transition-colors">Semua Materi</button>
-                <button class="px-5 py-2 rounded-full border border-gray-200 text-gray hover:border-brand-gold hover:text-brand-navy text-sm transition-colors">Finansial</button>
-                <button class="px-5 py-2 rounded-full border border-gray-200 text-gray hover:border-brand-gold hover:text-brand-navy text-sm transition-colors">Produktivitas</button>
-                <button class="px-5 py-2 rounded-full border border-gray-200 text-gray hover:border-brand-gold hover:text-brand-navy text-sm transition-colors">Mindset</button>
-            </div>
-
-            <!-- Course Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-list">
-                <!-- Injected via JS -->
-            </div>
-        </section>
-
-        <!-- ==================== VIEW: QUIZ ==================== -->
-        <section id="view-quiz" class="view-section hidden fade-in h-full flex flex-col">
-            <div class="flex-1 flex items-center justify-center p-6 py-12">
-                
-                <!-- Quiz Container -->
-                <div id="quiz-container" class="w-full max-w-2xl bg-brand-white rounded-2xl shadow-premium border border-gray-50 p-8 md:p-12">
-                    
-                    <!-- Intro Screen -->
-                    <div id="quiz-intro" class="text-center">
-                        <div class="w-20 h-20 bg-brand-goldLight/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i data-lucide="brain" class="w-10 h-10 text-brand-gold"></i>
-                        </div>
-                        <h2 class="font-serif text-3xl text-brand-navy mb-4">Uji Wawasan Profesional</h2>
-                        <p class="text-gray mb-8 leading-relaxed text-sm md:text-base">Tantang pemahaman Anda mengenai pengambilan keputusan, etika kerja, dan literasi finansial. Dapatkan poin untuk membuka badge eksklusif.</p>
-                        
-                        <div class="flex justify-center gap-4 text-sm text-gray mb-8 border-y border-gray-100 py-4">
-                            <span class="flex items-center gap-1"><i data-lucide="list" class="w-4 h-4"></i> 3 Pertanyaan</span>
-                            <span class="text-brand-goldLight">|</span>
-                            <span class="flex items-center gap-1"><i data-lucide="award" class="w-4 h-4"></i> +150 Poin Maks</span>
-                        </div>
-
-                        <button onclick="startQuiz()" class="bg-brand-navy text-white px-8 py-3 rounded-lg font-medium hover:bg-brand-navyLight transition-colors flex items-center gap-2 mx-auto">
-                            Mulai Evaluasi <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-
-                    <!-- Question Screen (Hidden initially) -->
-                    <div id="quiz-active" class="hidden">
-                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
-                            <span class="text-sm text-gray font-medium tracking-wide" id="quiz-progress-text">Pertanyaan 1 dari 3</span>
-                            <div class="flex gap-1" id="quiz-dots">
-                                <!-- Dots injected by JS -->
-                            </div>
-                        </div>
-
-                        <h3 class="font-serif text-xl md:text-2xl text-brand-navy mb-8 leading-relaxed" id="quiz-question"></h3>
-                        
-                        <div class="space-y-4" id="quiz-options">
-                            <!-- Options injected by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Result Screen (Hidden initially) -->
-                    <div id="quiz-result" class="hidden text-center fade-in">
-                         <div class="w-24 h-24 bg-brand-navy rounded-full flex items-center justify-center mx-auto mb-6 relative">
-                            <i data-lucide="check-circle" class="w-12 h-12 text-brand-gold"></i>
-                            <div class="absolute -bottom-2 -right-2 bg-brand-gold text-brand-navy text-xs font-bold px-2 py-1 rounded-full">+<span id="result-points">0</span></div>
-                        </div>
-                        <h2 class="font-serif text-3xl text-brand-navy mb-2">Evaluasi Selesai</h2>
-                        <p class="text-gray mb-6">Skor akhir Anda: <span id="result-score" class="font-bold text-brand-navy text-xl"></span></p>
-                        
-                        <div class="bg-brand-beige rounded-xl p-6 mb-8 text-sm text-gray text-left italic border-l-4 border-brand-gold" id="result-feedback">
-                            <!-- Feedback injected -->
-                        </div>
-
-                        <button onclick="resetQuiz()" class="bg-brand-navy text-white px-8 py-3 rounded-lg font-medium hover:bg-brand-navyLight transition-colors">
-                            Kembali ke Beranda
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== VIEW: PROGRESS ==================== -->
-        <section id="view-progress" class="view-section hidden fade-in max-w-5xl mx-auto px-6 md:px-12 py-10 pb-24">
-            
-            <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-gray-200 pb-6">
-                <div>
-                    <h1 class="font-serif text-3xl text-brand-navy mb-2">Profil & Pencapaian</h1>
-                    <p class="text-gray text-sm">Lacak perkembangan dan dedikasi Anda dalam belajar.</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs text-gray uppercase tracking-widest mb-1">Total Poin</p>
-                    <p class="font-serif text-3xl text-brand-gold" id="prog-total-points">1,250</p>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Stat Cards -->
-                <div class="md:col-span-1 space-y-6">
-                    <!-- Tracker Card -->
-                    <div class="bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50">
-                        <h3 class="font-medium text-brand-navy mb-6 flex items-center gap-2">
-                            <i data-lucide="activity" class="w-4 h-4 text-brand-gold"></i> Aktivitas Belajar
-                        </h3>
-                        
-                        <div class="space-y-5">
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span class="text-gray">Tingkat Penyelesaian</span>
-                                    <span class="font-medium text-brand-navy">78%</span>
-                                </div>
-                                <div class="w-full bg-brand-beige rounded-full h-1.5">
-                                    <div class="bg-brand-navy h-1.5 rounded-full" style="width: 78%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span class="text-gray">Konsistensi Harian</span>
-                                    <span class="font-medium text-brand-navy">12 Hari</span>
-                                </div>
-                                <div class="w-full bg-brand-beige rounded-full h-1.5">
-                                    <div class="bg-brand-gold h-1.5 rounded-full" style="width: 40%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Summary Card -->
-                     <div class="bg-brand-navy rounded-2xl p-6 text-white shadow-premium">
-                        <i data-lucide="shield-check" class="w-8 h-8 text-brand-gold mb-4"></i>
-                        <h3 class="font-serif text-xl mb-2">Status: Eksekutif</h3>
-                        <p class="text-brand-goldLight/70 text-sm font-light leading-relaxed">Anda berada di top 15% pembelajar bulan ini. Pertahankan konsistensi Anda.</p>
-                     </div>
-                </div>
-
-                <!-- Badges Collection -->
-                <div class="md:col-span-2 bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="font-medium text-brand-navy">Koleksi Tanda Kehormatan (Badges)</h3>
-                        <span class="text-xs bg-brand-goldLight/30 text-brand-navy px-3 py-1 rounded-full font-medium">3 Dibuka</span>
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        
-                        <!-- Unlocked Badge -->
-                        <div class="border border-brand-goldLight bg-brand-goldLight/5 rounded-xl p-4 text-center flex flex-col items-center justify-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center">
-                                <i data-lucide="zap" class="w-6 h-6 text-brand-gold"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-brand-navy">Inisiator</p>
-                                <p class="text-[10px] text-gray mt-1">Menyelesaikan materi pertama.</p>
-                            </div>
-                        </div>
-
-                        <!-- Unlocked Badge -->
-                        <div class="border border-brand-goldLight bg-brand-goldLight/5 rounded-xl p-4 text-center flex flex-col items-center justify-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center">
-                                <i data-lucide="target" class="w-6 h-6 text-brand-gold"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-brand-navy">Fokus Penuh</p>
-                                <p class="text-[10px] text-gray mt-1">Belajar 7 hari berturut-turut.</p>
-                            </div>
-                        </div>
-
-                        <!-- Unlocked Badge -->
-                        <div class="border border-brand-goldLight bg-brand-goldLight/5 rounded-xl p-4 text-center flex flex-col items-center justify-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center">
-                                <i data-lucide="brain" class="w-6 h-6 text-brand-gold"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-brand-navy">Ahli Analisa</p>
-                                <p class="text-[10px] text-gray mt-1">Skor sempurna pada 3 kuis.</p>
-                            </div>
-                        </div>
-
-                        <!-- Locked Badge -->
-                        <div class="border border-gray-100 bg-gray-50 rounded-xl p-4 text-center flex flex-col items-center justify-center gap-3 opacity-60 grayscale">
-                            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                <i data-lucide="gem" class="w-6 h-6 text-gray-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Master Finansial</p>
-                                <p class="text-[10px] text-gray mt-1">Selesaikan seluruh modul keuangan.</p>
-                            </div>
-                        </div>
-
-                        <!-- Locked Badge -->
-                        <div class="border border-gray-100 bg-gray-50 rounded-xl p-4 text-center flex flex-col items-center justify-center gap-3 opacity-60 grayscale">
-                            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                <i data-lucide="users" class="w-6 h-6 text-gray-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-500">Pemimpin</p>
-                                <p class="text-[10px] text-gray mt-1">Raih 5000 poin dedikasi.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Application Logic -->
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // --- STATE MANAGEMENT ---
-        let userState = {
-            points: 1250,
-            level: 'Eksekutif'
-        };
-
-        // --- NAVIGATION LOGIC ---
-        function navigate(viewId) {
-            // Hide all views
-            document.querySelectorAll('.view-section').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('block');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-brand-goldLight/30', 'text-brand-navy');
-                btn.classList.add('text-gray');
-            });
-
-            // Show selected view
-            const targetView = document.getElementById(`view-${viewId}`);
-            if(targetView) {
-                targetView.classList.remove('hidden');
-                targetView.classList.add('block');
-            }
-
-            // Set active state on button
-            const activeBtn = document.getElementById(`nav-${viewId}`);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-gray', 'hover:bg-brand-goldLight/10');
-                activeBtn.classList.add('active', 'bg-brand-goldLight/30', 'text-brand-navy');
-            }
-
-            // Special initializations
-            if(viewId === 'quiz') resetQuiz();
-            if(viewId === 'courses' && document.getElementById('course-list').innerHTML.trim() === '') renderCourses();
-        }
-
-        // Update UI Points
-        function updateGlobalPoints() {
-            document.getElementById('dash-points').innerText = userState.points.toLocaleString();
-            document.getElementById('prog-total-points').innerText = userState.points.toLocaleString();
-        }
-
-        // --- COURSE DATA & RENDER ---
-        const courses = [
-            {
-                title: "Literasi Finansial Dasar",
-                category: "Finansial",
-                desc: "Pahami manajemen arus kas, investasi pasif, dan persiapan masa pensiun secara elegan.",
-                icon: "pie-chart",
-                time: "45 Min",
-                progress: 0
-            },
-            {
-                title: "Seni Negosiasi Elegan",
-                category: "Komunikasi",
-                desc: "Teknik persuasif berkelas untuk mencapai win-win solution dalam dunia bisnis.",
-                icon: "briefcase",
-                time: "1.5 Jam",
-                progress: 60
-            },
-            {
-                title: "Manajemen Waktu Strategis",
-                category: "Produktivitas",
-                desc: "Berhenti sibuk, mulailah produktif. Kerangka kerja memprioritaskan hal esensial.",
-                icon: "hourglass",
-                time: "50 Min",
-                progress: 100
-            },
-            {
-                title: "Kecerdasan Emosional (EQ)",
-                category: "Mindset",
-                desc: "Mengelola stres dan membangun relasi profesional yang kuat dan bermakna.",
-                icon: "heart",
-                time: "2 Jam",
-                progress: 15
-            },
-            {
-                title: "Etika Sosial Modern",
-                category: "Personal Dev",
-                desc: "Membangun impresi pertama yang tak terlupakan dan networking berkelas.",
-                icon: "coffee",
-                time: "30 Min",
-                progress: 0
-            },
-            {
-                title: "Pemecahan Masalah Kritis",
-                category: "Leadership",
-                desc: "Kerangka berpikir analitis untuk menghadapi krisis tanpa panik.",
-                icon: "lightbulb",
-                time: "1 Jam",
-                progress: 0
-            }
-        ];
-
-        function renderCourses() {
-            const container = document.getElementById('course-list');
-            container.innerHTML = '';
-
-            courses.forEach(course => {
-                const isComplete = course.progress === 100;
-                const statusColor = isComplete ? 'bg-brand-navy' : (course.progress > 0 ? 'bg-brand-gold' : 'bg-gray-200');
-                
-                const card = `
-                    <div class="bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-brand-beige flex items-center justify-center text-brand-navy">
-                                <i data-lucide="${course.icon}" class="w-6 h-6"></i>
-                            </div>
-                            <span class="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded border border-gray-200 text-gray">${course.category}</span>
-                        </div>
-                        
-                        <h3 class="font-serif text-xl text-brand-navy mb-2 line-clamp-1">${course.title}</h3>
-                        <p class="text-sm text-gray mb-6 flex-1 leading-relaxed">${course.desc}</p>
-                        
-                        <div class="mt-auto">
-                            ${isComplete ? 
-                                `<div class="flex items-center gap-2 text-sm text-brand-navy font-medium"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-gold"></i> Selesai</div>` : 
-                                `
-                                <div class="flex justify-between text-xs mb-2">
-                                    <span class="text-gray flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> ${course.time}</span>
-                                    <span class="font-medium text-brand-navy">${course.progress}%</span>
-                                </div>
-                                <div class="w-full bg-brand-beige rounded-full h-1">
-                                    <div class="${statusColor} h-1 rounded-full" style="width: ${course.progress}%"></div>
-                                </div>
-                                `
-                            }
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += card;
-            });
-            lucide.createIcons();
-        }
-
-
-        // --- QUIZ LOGIC ---
-        const quizData = [
-            {
-                question: "Saat dihadapkan pada tenggat waktu yang sangat ketat dan sumber daya terbatas, pendekatan profesional mana yang paling tepat?",
-                options: [
-                    "Bekerja lembur hingga kelelahan demi menyelesaikannya sendiri.",
-                    "Mengurangi kualitas pekerjaan agar selesai tepat waktu.",
-                    "Membuat skala prioritas tugas, mendelegasikan yang bisa, dan menegosiasikan ekspektasi dengan atasan.",
-                    "Menghindari tanggung jawab dan menyalahkan situasi."
-                ],
-                correct: 2,
-                feedback: "Profesionalisme diukur dari kemampuan mengelola sumber daya dan komunikasi yang transparan, bukan sekadar bekerja lebih keras tanpa arah."
-            },
-            {
-                question: "Dalam literasi finansial, apa yang dimaksud dengan 'Membayar Diri Sendiri Terlebih Dahulu' (Pay Yourself First)?",
-                options: [
-                    "Membeli barang mewah setelah gajian sebagai bentuk self-reward.",
-                    "Menyisihkan persentase pendapatan untuk tabungan/investasi sebelum membayar tagihan lain.",
-                    "Membayar hutang kartu kredit segera setelah menerima gaji.",
-                    "Menghabiskan anggaran hiburan di awal bulan."
-                ],
-                correct: 1,
-                feedback: "Konsep ini memastikan masa depan finansial Anda menjadi prioritas utama sebelum gaya hidup menggerus pendapatan Anda."
-            },
-            {
-                question: "Bagaimana cara terbaik memberikan kritik membangun (constructive feedback) kepada rekan kerja?",
-                options: [
-                    "Menyampaikan kesalahan mereka di depan umum agar menjadi pelajaran bersama.",
-                    "Hanya memberikan pujian agar tidak merusak hubungan kerja.",
-                    "Fokus pada perilaku atau hasil kerja yang spesifik, bukan menyerang karakter pribadi, dan ditutup dengan solusi.",
-                    "Menyampaikan melalui email singkat tanpa penjelasan detail."
-                ],
-                correct: 2,
-                feedback: "Kritik yang elegan berfokus pada objek kerja dan perbaikan ke depan, menjaga martabat penerima kritik tetap utuh."
-            }
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-        const pointsPerQuestion = 50;
-
-        function startQuiz() {
-            document.getElementById('quiz-intro').classList.add('hidden');
-            document.getElementById('quiz-active').classList.remove('hidden');
-            currentQuestion = 0;
-            score = 0;
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            const q = quizData[currentQuestion];
-            document.getElementById('quiz-question').innerText = q.question;
-            document.getElementById('quiz-progress-text').innerText = `Pertanyaan ${currentQuestion + 1} dari ${quizData.length}`;
-            
-            // Render Dots
-            let dotsHTML = '';
-            for(let i=0; i<quizData.length; i++) {
-                if(i < currentQuestion) dotsHTML += `<div class="w-2 h-2 rounded-full bg-brand-navy"></div>`; // done
-                else if(i === currentQuestion) dotsHTML += `<div class="w-4 h-2 rounded-full bg-brand-gold"></div>`; // active
-                else dotsHTML += `<div class="w-2 h-2 rounded-full bg-gray-200"></div>`; // pending
-            }
-            document.getElementById('quiz-dots').innerHTML = dotsHTML;
-
-            // Render Options
-            const optionsContainer = document.getElementById('quiz-options');
-            optionsContainer.innerHTML = '';
-            
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 md:p-5 rounded-xl border border-gray-200 bg-brand-white hover:border-brand-gold hover:shadow-md transition-all text-gray hover:text-brand-navy text-sm md:text-base";
-                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded border border-gray-300 text-center mr-3 text-xs leading-5 align-middle">${String.fromCharCode(65 + index)}</span> ${opt}`;
-                btn.onclick = () => handleAnswer(index);
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function handleAnswer(selectedIndex) {
-            const isCorrect = selectedIndex === quizData[currentQuestion].correct;
-            if (isCorrect) score++;
-
-            // Highlight selected briefly before moving on (optional UX enhancement)
-            const buttons = document.getElementById('quiz-options').children;
-            for(let i=0; i<buttons.length; i++){
-                buttons[i].disabled = true;
-                if(i === selectedIndex) {
-                     buttons[i].classList.add(isCorrect ? 'border-green-500' : 'border-brand-navy', 'bg-gray-50');
-                }
-            }
-
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion < quizData.length) {
-                    loadQuestion();
-                } else {
-                    showResults();
-                }
-            }, 600);
-        }
-
-        function showResults() {
-            document.getElementById('quiz-active').classList.add('hidden');
-            const resultScreen = document.getElementById('quiz-result');
-            resultScreen.classList.remove('hidden');
-
-            const pointsEarned = score * pointsPerQuestion;
-            document.getElementById('result-score').innerText = `${score} / ${quizData.length}`;
-            document.getElementById('result-points').innerText = pointsEarned;
-            
-            let feedback = "Terus tingkatkan wawasan Anda. Pembelajaran adalah proses seumur hidup.";
-            if (score === quizData.length) {
-                feedback = "Sempurna. Anda memiliki pemahaman profesional yang sangat matang dan elegan.";
-            } else if (score > 0) {
-                feedback = "Pemahaman yang baik. Selalu ada ruang untuk menyempurnakan pendekatan profesional Anda.";
-            }
-            
-            // Show feedback from the last question as a learning point
-            feedback += `<br><br><span class="font-medium">Catatan Pembelajaran:</span> ${quizData[quizData.length-1].feedback}`;
-            document.getElementById('result-feedback').innerHTML = feedback;
-
-            // Update global state
-            userState.points += pointsEarned;
-            updateGlobalPoints();
-        }
-
-        function resetQuiz() {
-            document.getElementById('quiz-result').classList.add('hidden');
-            document.getElementById('quiz-active').classList.add('hidden');
-            document.getElementById('quiz-intro').classList.remove('hidden');
-            currentQuestion = 0;
-            score = 0;
-            
-            // If called from a view that is not quiz, it just prepares it.
-            // If we are on quiz view, navigate('dashboard') will switch view.
-            if(document.getElementById('view-quiz').classList.contains('block') && currentQuestion > 0){
-                navigate('dashboard');
-            }
-        }
-
-        // Initialize dashboard state on load
-        window.onload = () => {
-            updateGlobalPoints();
-        }
-
-    </script>
-</body>
-</html>
