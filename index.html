@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Learn | Premium Adult Learning</title>
+    <title>Aura | Premium Adult Learning</title>
     
+    <!-- Fonts: Playfair Display (Serif/Luxury) & Inter (Sans/Clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#112240',
-                            navyLight: '#1E3A5F',
-                            gold: '#C5A880',
-                            goldLight: '#E8D8C3',
-                            beige: '#F9F8F6',
-                            white: '#FFFFFF',
-                            gray: '#8892B0',
+                            navy: '#0F172A',      /* Deep Elegant Navy */
+                            navyLight: '#1E293B', /* Lighter Navy */
+                            gold: '#D4AF37',      /* Classic Soft Gold */
+                            goldLight: '#F3EAC0', /* Very pale gold */
+                            beige: '#FAF9F6',     /* Warm off-white */
+                            white: '#FFFFFF',     /* Pure white */
+                            gray: '#64748B',      /* Soft elegant text */
+                            border: '#E2E8F0',    /* Delicate borders */
                         }
                     },
                     fontFamily: {
@@ -33,8 +38,9 @@
                         serif: ['Playfair Display', 'serif'],
                     },
                     boxShadow: {
-                        'premium': '0 4px 20px -2px rgba(17, 34, 64, 0.05)',
-                        'premium-hover': '0 10px 30px -5px rgba(17, 34, 64, 0.08)',
+                        'luxury': '0 10px 40px -10px rgba(15, 23, 42, 0.08)',
+                        'luxury-hover': '0 20px 40px -10px rgba(15, 23, 42, 0.12)',
+                        'inner-gold': 'inset 0 2px 4px 0 rgba(212, 175, 55, 0.1)',
                     }
                 }
             }
@@ -42,130 +48,843 @@
     </script>
 
     <style>
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #F9F8F6; }
-        ::-webkit-scrollbar-thumb { background: #E8D8C3; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C5A880; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
-        body { background-color: #F9F8F6; color: #112240; }
-        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        body {
+            background-color: #FAF9F6;
+            color: #0F172A;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .bg-pattern {
-            background-image: radial-gradient(#C5A880 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            background-color: #112240;
+        /* Subtle Background Pattern for Hero Section */
+        .luxury-pattern {
+            background-image: 
+                radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.05) 0, rgba(212, 175, 55, 0.05) 3px, transparent 3px),
+                radial-gradient(circle at 0 0, rgba(212, 175, 55, 0.05) 0, rgba(212, 175, 55, 0.05) 3px, transparent 3px);
+            background-size: 32px 32px;
         }
 
-        /* Gaya khusus untuk input nama agar menyatu dengan desain */
-        .input-nama-edit {
-            background: transparent;
-            border: none;
-            outline: none;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            font-family: inherit;
-            color: #112240;
-            font-weight: 500;
-            cursor: pointer;
-            border-bottom: 1px dashed transparent;
-            transition: all 0.2s;
+        /* Glassmorphism for Modal */
+        .modal-backdrop {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .input-nama-edit:hover {
-            border-bottom-color: #C5A880;
-        }
-        .input-nama-edit:focus {
-            border-bottom: 1px solid #C5A880;
-            background: #fff;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
+
+        /* Hide elements utility */
+        .hide-view { display: none !important; }
     </style>
 </head>
 <body class="font-sans antialiased h-screen flex flex-col md:flex-row overflow-hidden">
 
-    <nav class="bg-brand-white border-r border-gray-100 w-full md:w-64 flex-shrink-0 z-50 flex md:flex-col justify-between md:justify-start fixed md:static bottom-0 left-0 right-0 h-16 md:h-full shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:shadow-none">
+    <!-- ==================== SIDEBAR (DESKTOP) & BOTTOM NAV (MOBILE) ==================== -->
+    <nav class="bg-brand-white border-r border-brand-border w-full md:w-[280px] flex-shrink-0 z-40 flex md:flex-col justify-between md:justify-start fixed md:static bottom-0 left-0 right-0 h-16 md:h-full shadow-[0_-4px_20px_rgba(0,0,0,0.03)] md:shadow-none transition-all">
         
-        <div class="hidden md:flex items-center gap-3 px-8 py-8 border-b border-gray-50">
-            <div class="w-8 h-8 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold">
-                <i data-lucide="gem" class="w-4 h-4"></i>
+        <!-- Logo Area -->
+        <div class="hidden md:flex items-center gap-3 px-8 py-10 border-b border-brand-border/50">
+            <div class="w-8 h-8 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold shadow-inner-gold">
+                <i data-lucide="compass" class="w-4 h-4"></i>
             </div>
-            <span class="font-serif font-semibold text-xl tracking-wide text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
+            <span class="font-serif font-semibold text-2xl tracking-wide text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
         </div>
 
-        <div class="flex md:flex-col w-full md:w-auto justify-around md:justify-start md:px-4 md:py-6 gap-1 md:gap-2 h-full items-center md:items-stretch">
-            <button onclick="navigate('dashboard')" id="nav-dashboard" class="nav-btn active flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-brand-navy bg-brand-goldLight/30 font-medium transition-all duration-300 w-full md:w-auto">
-                <i data-lucide="layout-dashboard" class="w-5 h-5 md:w-5 md:h-5"></i>
+        <!-- Navigation Links -->
+        <div class="flex md:flex-col w-full md:w-auto justify-around md:justify-start md:px-6 md:py-8 gap-1 md:gap-3 h-full items-center md:items-stretch">
+            
+            <button onclick="navigate('dashboard')" id="nav-dashboard" class="nav-btn group flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-brand-navy bg-brand-goldLight/40 font-medium transition-all duration-300 w-full md:w-auto">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 md:w-5 md:h-5 group-hover:scale-110 transition-transform"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Beranda</span>
             </button>
-            <button onclick="navigate('courses')" id="nav-courses" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
-                <i data-lucide="book-open" class="w-5 h-5 md:w-5 md:h-5"></i>
+
+            <button onclick="navigate('courses')" id="nav-courses" class="nav-btn group flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-brand-gray hover:text-brand-navy hover:bg-brand-beige font-medium transition-all duration-300 w-full md:w-auto">
+                <i data-lucide="book-open" class="w-5 h-5 md:w-5 md:h-5 group-hover:scale-110 transition-transform"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Materi</span>
             </button>
-            <button onclick="navigate('quiz')" id="nav-quiz" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
-                <i data-lucide="brain-circuit" class="w-5 h-5 md:w-5 md:h-5"></i>
-                <span class="text-[10px] md:text-sm tracking-wide">Kuis</span>
+
+            <button onclick="navigate('quiz')" id="nav-quiz" class="nav-btn group flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-brand-gray hover:text-brand-navy hover:bg-brand-beige font-medium transition-all duration-300 w-full md:w-auto">
+                <i data-lucide="brain-circuit" class="w-5 h-5 md:w-5 md:h-5 group-hover:scale-110 transition-transform"></i>
+                <span class="text-[10px] md:text-sm tracking-wide">Evaluasi</span>
             </button>
-            <button onclick="navigate('progress')" id="nav-progress" class="nav-btn flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3 rounded-lg text-gray hover:text-brand-navy hover:bg-brand-goldLight/10 font-medium transition-all duration-300 w-full md:w-auto">
-                <i data-lucide="trending-up" class="w-5 h-5 md:w-5 md:h-5"></i>
+
+            <button onclick="navigate('progress')" id="nav-progress" class="nav-btn group flex md:flex-row flex-col items-center gap-1 md:gap-4 px-4 py-2 md:py-3.5 rounded-xl text-brand-gray hover:text-brand-navy hover:bg-brand-beige font-medium transition-all duration-300 w-full md:w-auto">
+                <i data-lucide="trending-up" class="w-5 h-5 md:w-5 md:h-5 group-hover:scale-110 transition-transform"></i>
                 <span class="text-[10px] md:text-sm tracking-wide">Progres</span>
             </button>
         </div>
 
-        <div class="hidden md:flex mt-auto p-6 border-t border-gray-50 items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold" id="userInitial">
-                A
+        <!-- User Profile (Desktop) - Clickable to edit -->
+        <div onclick="openProfileModal()" class="hidden md:flex mt-auto mx-6 mb-8 p-4 rounded-2xl border border-brand-border bg-brand-white shadow-sm items-center gap-4 cursor-pointer hover:border-brand-gold/50 hover:shadow-luxury transition-all group relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-brand-goldLight/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            
+            <div id="sidebar-initial" class="w-10 h-10 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold font-serif font-bold relative z-10">
+                P
             </div>
-            <div class="flex-1 overflow-hidden">
-                <input type="text" id="inputNamaSidebar" value="Adrian Pratama" 
-                    class="input-nama-edit text-sm" 
-                    oninput="sinkronkanNama(this.value)" 
-                    onblur="simpanNama(this.value)"
-                    title="Klik untuk ganti nama">
-                <p class="text-xs text-gray">Premium Member</p>
+            <div class="flex-1 relative z-10">
+                <p class="text-[10px] text-brand-gold uppercase tracking-widest font-semibold mb-0.5">Premium</p>
+                <p id="sidebar-name" class="text-sm font-medium text-brand-navy truncate max-w-[120px]">Pengguna</p>
+            </div>
+            <div class="w-6 h-6 rounded-full bg-brand-beige flex items-center justify-center relative z-10">
+                <i data-lucide="settings-2" class="w-3 h-3 text-brand-gray group-hover:text-brand-navy transition-colors"></i>
             </div>
         </div>
     </nav>
 
-    <main class="flex-1 h-full overflow-y-auto pb-20 md:pb-0 relative bg-brand-beige">
+    <!-- ==================== MAIN CONTENT AREA ==================== -->
+    <main class="flex-1 h-full overflow-y-auto pb-20 md:pb-0 relative bg-brand-beige scroll-smooth">
         
-        <div class="md:hidden bg-brand-white px-6 py-4 flex justify-between items-center sticky top-0 z-40 border-b border-gray-100">
-            <span class="font-serif font-semibold text-lg text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
-            <div class="w-8 h-8 rounded-full bg-brand-goldLight flex items-center justify-center text-brand-navy font-serif font-bold text-sm" id="userInitialMobile">
-                A
+        <!-- Mobile Header -->
+        <div class="md:hidden bg-brand-white px-6 py-4 flex justify-between items-center sticky top-0 z-30 border-b border-brand-border/50 shadow-sm">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold">
+                    <i data-lucide="compass" class="w-3 h-3"></i>
+                </div>
+                <span class="font-serif font-semibold text-lg text-brand-navy">Aura<span class="text-brand-gold">.</span></span>
+            </div>
+            <div onclick="openProfileModal()" id="mobile-initial" class="w-8 h-8 rounded-full bg-brand-navy flex items-center justify-center text-brand-gold font-serif font-bold text-sm cursor-pointer shadow-sm ring-2 ring-transparent hover:ring-brand-goldLight transition-all">
+                P
             </div>
         </div>
 
-        <section id="view-dashboard" class="view-section block fade-in min-h-full">
-            <div class="bg-pattern text-brand-white px-8 md:px-12 pt-12 pb-16 md:pb-20 relative overflow-hidden">
-                <div class="absolute top-0 right-0 opacity-10 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-                    <i data-lucide="compass" class="w-64 h-64 text-brand-gold"></i>
-                </div>
+        <!-- ==================== VIEW 1: DASHBOARD ==================== -->
+        <section id="view-dashboard" class="view-section block fade-in min-h-full pb-12">
+            
+            <!-- Hero Section -->
+            <div class="bg-brand-navy text-brand-white px-6 md:px-16 pt-12 pb-24 relative overflow-hidden luxury-pattern">
+                <!-- Abstract Accent -->
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-brand-gold rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-pulse"></div>
                 
-                <div class="relative z-10 max-w-4xl mx-auto">
-                    <p class="text-brand-gold font-medium tracking-widest text-xs uppercase mb-3">Dashboard Utama</p>
-                    <h1 class="font-serif text-3xl md:text-4xl lg:text-5xl mb-2">Selamat Pagi, <span id="namaSapaan">Adrian</span>.</h1>
-                    <p class="text-gray-300 font-light max-w-lg text-sm md:text-base leading-relaxed">
-                        Pertumbuhan diri adalah investasi terbaik. Mari lanjutkan perjalanan Anda menuju versi yang lebih baik hari ini.
-                    </p>
+                <div class="relative z-10 max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                    <div>
+                        <p class="text-brand-gold tracking-widest text-xs font-semibold uppercase mb-3 flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-3 h-3"></i> Dashboard Eksklusif
+                        </p>
+                        <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-3 leading-tight">
+                            Selamat Datang Kembali,<br>
+                            <span id="dash-name" class="text-brand-gold italic">Pengguna</span>.
+                        </h1>
+                        <p class="text-brand-gray-300 font-light max-w-xl text-sm md:text-base leading-relaxed text-slate-300">
+                            Setiap hari adalah kesempatan untuk menyempurnakan diri. Mari lanjutkan perjalanan Anda menuju pribadi yang lebih elegan dan berwawasan.
+                        </p>
+                    </div>
+                    
+                    <button onclick="navigate('courses')" class="px-6 py-3 bg-brand-gold text-brand-navy text-sm font-semibold rounded-full hover:bg-white hover:shadow-lg transition-all flex items-center gap-2">
+                        Mulai Sesi <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="max-w-5xl mx-auto px-6 md:px-12 -mt-8 relative z-20 space-y-8 pb-12">
+            <div class="max-w-5xl mx-auto px-6 md:px-16 -mt-12 relative z-20 space-y-8">
+                
+                <!-- Daily Quote & Quick Stats -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 bg-brand-white rounded-2xl p-8 shadow-premium border border-gray-50 flex flex-col justify-center relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
-                        <i data-lucide="quote" class="text-brand-goldLight w-8 h-8 mb-4"></i>
+                    
+                    <!-- Quote Card -->
+                    <div class="lg:col-span-2 bg-brand-white rounded-2xl p-8 shadow-luxury border border-brand-border/50 flex flex-col justify-center relative overflow-hidden group hover:border-brand-gold/30 transition-colors">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-brand-gold opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <i data-lucide="quote" class="text-brand-goldLight w-10 h-10 mb-4 opacity-50"></i>
                         <blockquote class="font-serif text-xl md:text-2xl text-brand-navy leading-relaxed mb-4">
-                            "Kecerdasan sejati bukanlah mengetahui segalanya, melainkan memiliki kemampuan untuk terus belajar di segala situasi."
+                            "Kecerdasan sejati bukanlah mengetahui segalanya, melainkan memiliki kemampuan untuk terus belajar di segala situasi secara elegan."
                         </blockquote>
-                        <p class="text-sm text-gray font-medium tracking-wide uppercase">— C. S. Dweck</p>
+                        <div class="flex items-center gap-3 mt-auto">
+                            <div class="w-8 h-px bg-brand-gold"></div>
+                            <p class="text-xs text-brand-gray font-semibold tracking-widest uppercase">Kutipan Hari Ini</p>
+                        </div>
                     </div>
-                    <div class="bg-brand-white rounded-2xl p-6 shadow-premium border border-gray-50 flex flex-col justify-between gap-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium text-gray uppercase tracking-wider">Level Anda</span>
-                            <i data-lucide="award" class="w-5 h-5 text-brand-gold"></i>
+
+                    <!-- Level & Points Card -->
+                    <div class="bg-brand-white rounded-2xl p-8 shadow-luxury border border-brand-border/50 flex flex-col justify-between">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <p class="text-[10px] font-bold text-brand-gray uppercase tracking-widest mb-1">Status Anda</p>
+                                <h3 class="font-serif text-2xl text-brand-navy" id="dash-level">Visionary</h3>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-brand-goldLight/30 flex items-center justify-center">
+                                <i data-lucide="shield" class="w-5 h-5 text-brand-gold"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-end gap-1 mb-1">
+                                <span class="text-3xl font-light text-brand-navy tracking-tight" id="dash-points">0</span>
+                                <span class="text-sm font-medium text-brand-gold mb-1">Pts</span>
+                            </div>
+                            <p class="text-xs text-brand-gray">Kumpulkan 500 Pts menuju level Master.</p>
+                        </div>
+
+                        <div>
+                            <div class="w-full bg-brand-beige rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-brand-navy h-full rounded-full transition-all duration-1000 ease-out relative" style="width: 35%">
+                                    <div class="absolute right-0 top-0 bottom-0 w-4 bg-white/30 blur-[2px]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Learning Section -->
+                <div class="pt-4">
+                    <div class="flex justify-between items-end mb-6">
+                        <h2 class="font-serif text-2xl text-brand-navy flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-brand-gold"></i> Sedang Dipelajari
+                        </h2>
+                    </div>
+                    
+                    <div class="bg-brand-white rounded-2xl p-4 md:p-6 shadow-luxury border border-brand-border/50 flex flex-col md:flex-row items-start md:items-center gap-6 cursor-pointer hover:shadow-luxury-hover hover:-translate-y-1 transition-all duration-300 group" onclick="navigate('courses')">
+                        <div class="w-16 h-16 rounded-2xl bg-brand-beige flex items-center justify-center flex-shrink-0 border border-brand-border group-hover:border-brand-gold/50 transition-colors">
+                            <i data-lucide="pie-chart" class="w-7 h-7 text-brand-navy"></i>
+                        </div>
+                        <div class="flex-1 w-full">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <span class="text-[10px] font-bold text-brand-navy bg-brand-goldLight/40 px-2 py-0.5 rounded uppercase tracking-wider">Literasi Finansial</span>
+                            </div>
+                            <h3 class="font-serif text-xl text-brand-navy mb-2">Seni Manajemen Aset Personal</h3>
+                            <p class="text-sm text-brand-gray hidden md:block max-w-lg">Pahami struktur pengeluaran, investasi pasif, dan diversifikasi portofolio untuk profesional muda.</p>
+                        </div>
+                        <div class="w-full md:w-56 mt-2 md:mt-0 bg-brand-beige p-4 rounded-xl border border-brand-border/50">
+                            <div class="flex justify-between text-xs mb-2">
+                                <span class="text-brand-gray font-medium">Progres Modul</span>
+                                <span class="font-bold text-brand-navy">45%</span>
+                            </div>
+                            <div class="w-full bg-white rounded-full h-1.5 mb-3">
+                                <div class="bg-brand-gold h-full rounded-full" style="width: 45%"></div>
+                            </div>
+                            <p class="text-[10px] text-brand-gray flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> Estimasi sisa: 25 Menit</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: COURSES (MATERI) ==================== -->
+        <section id="view-courses" class="view-section hide-view fade-in min-h-full bg-brand-white">
+            
+            <div class="max-w-6xl mx-auto px-6 md:px-16 py-12 md:py-16">
+                <!-- Header -->
+                <div class="mb-12 md:mb-16 max-w-2xl">
+                    <p class="text-brand-gold tracking-widest text-xs font-semibold uppercase mb-3 flex items-center gap-2">
+                        <i data-lucide="library" class="w-3 h-3"></i> Kurikulum
+                    </p>
+                    <h1 class="font-serif text-3xl md:text-5xl text-brand-navy mb-4">Katalog Eksklusif.</h1>
+                    <p class="text-brand-gray text-sm md:text-base leading-relaxed">Akses berbagai materi yang dirancang khusus untuk meningkatkan keterampilan sosial, finansial, dan kepemimpinan di kehidupan nyata.</p>
+                </div>
+
+                <!-- Tabs (Visual) -->
+                <div class="flex overflow-x-auto pb-4 mb-8 gap-2 no-scrollbar border-b border-brand-border/50">
+                    <button class="px-5 py-2.5 border-b-2 border-brand-navy text-brand-navy text-sm font-semibold whitespace-nowrap">Semua Topik</button>
+                    <button class="px-5 py-2.5 border-b-2 border-transparent text-brand-gray hover:text-brand-navy text-sm font-medium whitespace-nowrap transition-colors">Produktivitas</button>
+                    <button class="px-5 py-2.5 border-b-2 border-transparent text-brand-gray hover:text-brand-navy text-sm font-medium whitespace-nowrap transition-colors">Komunikasi</button>
+                    <button class="px-5 py-2.5 border-b-2 border-transparent text-brand-gray hover:text-brand-navy text-sm font-medium whitespace-nowrap transition-colors">Mindset</button>
+                </div>
+
+                <!-- Course Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="course-list">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: QUIZ (EVALUASI) ==================== -->
+        <section id="view-quiz" class="view-section hide-view fade-in h-full flex flex-col relative overflow-hidden bg-brand-white">
+            <!-- Decorative BG -->
+            <div class="absolute -left-40 -bottom-40 w-[500px] h-[500px] bg-brand-beige rounded-full mix-blend-multiply opacity-50"></div>
+            
+            <div class="flex-1 flex items-center justify-center p-6 py-12 relative z-10">
+                
+                <!-- Card Container -->
+                <div id="quiz-container" class="w-full max-w-2xl bg-white rounded-3xl shadow-luxury border border-brand-border p-8 md:p-14 relative overflow-hidden">
+                    
+                    <!-- Top Line Decor -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-goldLight via-brand-gold to-brand-goldLight"></div>
+
+                    <!-- State 1: Intro -->
+                    <div id="quiz-intro" class="text-center">
+                        <div class="w-24 h-24 bg-brand-beige border border-brand-border rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
+                            <i data-lucide="brain" class="w-10 h-10 text-brand-navy"></i>
+                        </div>
+                        <h2 class="font-serif text-3xl md:text-4xl text-brand-navy mb-4">Evaluasi Wawasan</h2>
+                        <p class="text-brand-gray mb-8 leading-relaxed text-sm md:text-base max-w-lg mx-auto">
+                            Tantang studi kasus dunia nyata seputar etika kerja, penyelesaian masalah, dan literasi finansial untuk mendapatkan Poin Elit.
+                        </p>
+                        
+                        <div class="inline-flex items-center gap-6 text-sm text-brand-navy bg-brand-beige px-6 py-3 rounded-full mb-10 border border-brand-border/50">
+                            <span class="flex items-center gap-2 font-medium"><i data-lucide="list-checks" class="w-4 h-4 text-brand-gold"></i> 3 Skenario</span>
+                            <span class="text-brand-border">|</span>
+                            <span class="flex items-center gap-2 font-medium"><i data-lucide="award" class="w-4 h-4 text-brand-gold"></i> Maks 150 Pts</span>
+                        </div>
+
+                        <div>
+                            <button onclick="startQuiz()" class="bg-brand-navy text-white px-10 py-3.5 rounded-full font-semibold hover:bg-brand-gold hover:text-brand-navy shadow-md hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto">
+                                Mulai Sesi Evaluasi <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- State 2: Active Question -->
+                    <div id="quiz-active" class="hidden">
+                        <div class="flex justify-between items-center mb-8">
+                            <span class="text-xs font-bold text-brand-gold tracking-widest uppercase" id="quiz-progress-text">Skenario 1/3</span>
+                            <div class="flex gap-1.5" id="quiz-dots">
+                                <!-- Dots -->
+                            </div>
+                        </div>
+
+                        <h3 class="font-serif text-xl md:text-2xl text-brand-navy mb-8 leading-relaxed" id="quiz-question"></h3>
+                        
+                        <div class="space-y-4" id="quiz-options">
+                            <!-- Buttons injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- State 3: Results -->
+                    <div id="quiz-result" class="hidden text-center fade-in">
+                         <div class="w-28 h-28 bg-brand-navy rounded-full flex items-center justify-center mx-auto mb-8 relative shadow-luxury">
+                            <i data-lucide="check" class="w-12 h-12 text-brand-gold"></i>
+                            <div class="absolute -bottom-2 -right-2 bg-brand-white border border-brand-border text-brand-navy text-sm font-bold px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1">
+                                +<span id="result-points">0</span> Pts
+                            </div>
+                        </div>
+                        
+                        <h2 class="font-serif text-3xl text-brand-navy mb-2">Evaluasi Selesai</h2>
+                        <p class="text-brand-gray mb-8">Anda menjawab <span id="result-score" class="font-bold text-brand-navy text-lg mx-1"></span> skenario dengan tepat.</p>
+                        
+                        <div class="bg-brand-beige border border-brand-border rounded-2xl p-6 mb-10 text-sm text-brand-navy text-left relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
+                            <i data-lucide="lightbulb" class="w-5 h-5 text-brand-gold mb-2"></i>
+                            <div id="result-feedback" class="leading-relaxed font-medium"></div>
+                        </div>
+
+                        <button onclick="resetQuiz()" class="bg-white border-2 border-brand-navy text-brand-navy px-8 py-3 rounded-full font-semibold hover:bg-brand-navy hover:text-white transition-all duration-300">
+                            Kembali ke Menu Utama
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 4: PROGRESS & ACHIEVEMENTS ==================== -->
+        <section id="view-progress" class="view-section hide-view fade-in max-w-6xl mx-auto px-6 md:px-16 py-12 md:py-16 pb-24">
+            
+            <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-brand-border pb-8">
+                <div>
+                    <p class="text-brand-gold tracking-widest text-xs font-semibold uppercase mb-2 flex items-center gap-2">
+                        <i data-lucide="bar-chart-2" class="w-3 h-3"></i> Analitik Personal
+                    </p>
+                    <h1 class="font-serif text-3xl md:text-4xl text-brand-navy">Jejak Pertumbuhan.</h1>
+                </div>
+                <div class="bg-brand-white px-6 py-4 rounded-2xl shadow-sm border border-brand-border min-w-[200px] text-right">
+                    <p class="text-[10px] text-brand-gray uppercase tracking-widest font-semibold mb-1">Total Dedikasi</p>
+                    <p class="font-serif text-3xl text-brand-navy"><span id="prog-total-points" class="text-brand-gold">0</span> <span class="text-sm font-sans text-brand-gray">Pts</span></p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Left Column: Stats -->
+                <div class="lg:col-span-4 space-y-6">
+                    
+                    <div class="bg-brand-navy rounded-3xl p-8 text-brand-white shadow-luxury relative overflow-hidden">
+                        <i data-lucide="award" class="w-40 h-40 text-brand-white opacity-[0.03] absolute -bottom-10 -right-10 transform -rotate-12"></i>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 rounded-full bg-brand-goldLight/20 flex items-center justify-center mb-6">
+                                <i data-lucide="crown" class="w-6 h-6 text-brand-gold"></i>
+                            </div>
+                            <p class="text-xs text-brand-gold uppercase tracking-widest font-semibold mb-1">Status Saat Ini</p>
+                            <h3 class="font-serif text-3xl mb-4" id="prog-level-text">Visionary</h3>
+                            <p class="text-brand-gray-300 text-sm font-light leading-relaxed text-slate-300">Konsistensi Anda menempatkan Anda di 15% teratas pengguna aktif bulan ini.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-white rounded-3xl p-8 shadow-sm border border-brand-border">
+                        <h3 class="font-medium text-brand-navy mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">
+                            <i data-lucide="activity" class="w-4 h-4 text-brand-gold"></i> Matriks Performa
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-2">
+                                    <span class="text-brand-gray">Tingkat Penyelesaian</span>
+                                    <span class="text-brand-navy">68%</span>
+                                </div>
+                                <div class="w-full bg-brand-beige rounded-full h-2">
+                                    <div class="bg-brand-navy h-2 rounded-full" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-2">
+                                    <span class="text-brand-gray">Konsistensi Akses</span>
+                                    <span class="text-brand-navy">12 Hari</span>
+                                </div>
+                                <div class="w-full bg-brand-beige rounded-full h-2">
+                                    <div class="bg-brand-gold h-2 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Badges -->
+                <div class="lg:col-span-8 bg-brand-white rounded-3xl p-8 md:p-10 shadow-sm border border-brand-border">
+                    <div class="flex justify-between items-center mb-8 pb-4 border-b border-brand-border/50">
+                        <h3 class="font-medium text-brand-navy text-sm uppercase tracking-wider">Tanda Kehormatan Eksklusif</h3>
+                        <span class="text-xs bg-brand-beige border border-brand-border text-brand-navy px-3 py-1 rounded-full font-bold">3/5 Diperoleh</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Unlocked Badge 1 -->
+                        <div class="border border-brand-gold/30 bg-brand-goldLight/10 rounded-2xl p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-full bg-brand-white shadow-sm flex items-center justify-center flex-shrink-0 border border-brand-gold/20">
+                                <i data-lucide="zap" class="w-6 h-6 text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-brand-navy mb-0.5">Inisiator Pertama</p>
+                                <p class="text-xs text-brand-gray leading-tight">Menyelesaikan modul orientasi dasar.</p>
+                            </div>
+                        </div>
+
+                        <!-- Unlocked Badge 2 -->
+                        <div class="border border-brand-gold/30 bg-brand-goldLight/10 rounded-2xl p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-full bg-brand-white shadow-sm flex items-center justify-center flex-shrink-0 border border-brand-gold/20">
+                                <i data-lucide="target" class="w-6 h-6 text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-brand-navy mb-0.5">Fokus Persisten</p>
+                                <p class="text-xs text-brand-gray leading-tight">Login 7 hari berturut-turut.</p>
+                            </div>
+                        </div>
+
+                        <!-- Unlocked Badge 3 -->
+                        <div class="border border-brand-gold/30 bg-brand-goldLight/10 rounded-2xl p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+                            <div class="w-14 h-14 rounded-full bg-brand-white shadow-sm flex items-center justify-center flex-shrink-0 border border-brand-gold/20">
+                                <i data-lucide="brain" class="w-6 h-6 text-brand-gold"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-brand-navy mb-0.5">Logika Tajam</p>
+                                <p class="text-xs text-brand-gray leading-tight">Skor sempurna pada evaluasi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Locked Badge 1 -->
+                        <div class="border border-brand-border bg-brand-beige/50 rounded-2xl p-5 flex items-center gap-4 opacity-60 grayscale cursor-not-allowed">
+                            <div class="w-14 h-14 rounded-full bg-brand-border/50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="gem" class="w-6 h-6 text-brand-gray"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-brand-gray mb-0.5">Master Finansial</p>
+                                <p class="text-xs text-brand-gray leading-tight">Selesaikan seluruh modul keuangan.</p>
+                            </div>
+                            <i data-lucide="lock" class="w-4 h-4 text-brand-gray ml-auto"></i>
+                        </div>
+
+                        <!-- Locked Badge 2 -->
+                        <div class="border border-brand-border bg-brand-beige/50 rounded-2xl p-5 flex items-center gap-4 opacity-60 grayscale cursor-not-allowed">
+                            <div class="w-14 h-14 rounded-full bg-brand-border/50 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="users" class="w-6 h-6 text-brand-gray"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-brand-gray mb-0.5">Pemimpin Bijak</p>
+                                <p class="text-xs text-brand-gray leading-tight">Raih 5000 poin dedikasi.</p>
+                            </div>
+                            <i data-lucide="lock" class="w-4 h-4 text-brand-gray ml-auto"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== MODAL: PROFILE SETTING ==================== -->
+    <div id="profile-modal" class="fixed inset-0 z-50 flex items-center justify-center modal-backdrop hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-brand-white rounded-3xl shadow-luxury p-8 md:p-10 max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300 border border-brand-border" id="profile-modal-content">
+            
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h3 class="font-serif text-2xl text-brand-navy mb-1">Pengaturan Profil</h3>
+                    <p class="text-xs text-brand-gray">Personalisasi pengalaman belajar Anda.</p>
+                </div>
+                <button onclick="closeProfileModal()" class="w-8 h-8 rounded-full bg-brand-beige flex items-center justify-center text-brand-gray hover:text-brand-navy hover:bg-brand-border transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="w-20 h-20 rounded-full bg-brand-navy text-brand-gold flex items-center justify-center font-serif text-3xl font-bold shadow-inner-gold relative">
+                    <span id="modal-initial">P</span>
+                    <div class="absolute bottom-0 right-0 w-6 h-6 bg-brand-white rounded-full border border-brand-border flex items-center justify-center">
+                        <i data-lucide="camera" class="w-3 h-3 text-brand-navy"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <label for="name-input" class="block text-[10px] font-bold text-brand-gray uppercase tracking-widest mb-2">Nama Lengkap</label>
+                <input type="text" id="name-input" class="w-full px-4 py-3 rounded-xl border border-brand-border focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold text-brand-navy bg-brand-white text-sm font-medium transition-all" placeholder="Masukkan nama Anda..." autocomplete="off">
+            </div>
+            
+            <button onclick="saveProfile()" class="w-full py-3.5 rounded-xl text-sm font-bold bg-brand-navy text-white hover:bg-brand-gold hover:text-brand-navy shadow-md transition-all duration-300">
+                Simpan Perubahan
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // 1. Inisialisasi Icon
+        lucide.createIcons();
+
+        // 2. State Aplikasi
+        let appState = {
+            points: 2450,
+            level: 'Visionary',
+            userName: 'Pengguna'
+        };
+
+        // 3. Logika Profil & Local Storage
+        function initProfile() {
+            // Cek local storage
+            const savedName = localStorage.getItem('aura_username');
+            if (savedName) {
+                appState.userName = savedName;
+            }
+            updateProfileUI();
+        }
+
+        function updateProfileUI() {
+            const fullName = appState.userName;
+            const firstName = fullName.split(' ')[0];
+            const initial = firstName.charAt(0).toUpperCase();
+
+            // Sidebar & Mobile Header
+            document.getElementById('sidebar-name').innerText = fullName;
+            document.getElementById('sidebar-initial').innerText = initial;
+            document.getElementById('mobile-initial').innerText = initial;
+            
+            // Dashboard Welcome
+            document.getElementById('dash-name').innerText = firstName;
+            
+            // Modal Initial
+            document.getElementById('modal-initial').innerText = initial;
+        }
+
+        function openProfileModal() {
+            const modal = document.getElementById('profile-modal');
+            const content = document.getElementById('profile-modal-content');
+            const input = document.getElementById('name-input');
+            
+            input.value = appState.userName;
+
+            modal.classList.remove('hidden');
+            // Timeout untuk trigger CSS transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                input.focus();
+            }, 10);
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profile-modal');
+            const content = document.getElementById('profile-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function saveProfile() {
+            const inputVal = document.getElementById('name-input').value.trim();
+            if(inputVal !== '') {
+                appState.userName = inputVal;
+                localStorage.setItem('aura_username', inputVal);
+                updateProfileUI();
+            }
+            closeProfileModal();
+        }
+
+        // Listener enter key pada input nama
+        document.getElementById('name-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') saveProfile();
+        });
+
+
+        // 4. Logika Navigasi View
+        function navigate(viewId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.add('hide-view');
+                el.classList.remove('block');
+            });
+            
+            // Reset style semua tombol nav
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-goldLight/40', 'text-brand-navy');
+                btn.classList.add('text-brand-gray', 'hover:bg-brand-beige');
+            });
+
+            // Tampilkan section yang dipilih
+            const targetView = document.getElementById(`view-${viewId}`);
+            if(targetView) {
+                targetView.classList.remove('hide-view');
+                targetView.classList.add('block');
+            }
+
+            // Highlight tombol yang aktif
+            const activeBtn = document.getElementById(`nav-${viewId}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-brand-gray', 'hover:bg-brand-beige');
+                activeBtn.classList.add('bg-brand-goldLight/40', 'text-brand-navy');
+            }
+
+            // Render dinamis jika diperlukan
+            if(viewId === 'quiz') resetQuiz();
+            if(viewId === 'courses' && document.getElementById('course-list').innerHTML.trim() === '') renderCourses();
+        }
+
+        function updatePointsUI() {
+            document.getElementById('dash-points').innerText = appState.points.toLocaleString();
+            document.getElementById('prog-total-points').innerText = appState.points.toLocaleString();
+            document.getElementById('dash-level').innerText = appState.level;
+            document.getElementById('prog-level-text').innerText = appState.level;
+        }
+
+
+        // 5. Data & Render Kurikulum (Materi)
+        const courses = [
+            { title: "Manajemen Aset & Investasi", category: "Finansial", desc: "Strategi alokasi aset, compound interest, dan perencanaan masa depan secara elegan.", icon: "pie-chart", time: "45 Min", progress: 45 },
+            { title: "Seni Negosiasi & Persuasi", category: "Komunikasi", desc: "Teknik berkelas untuk mencapai win-win solution dalam dunia profesional.", icon: "briefcase", time: "1.5 Jam", progress: 0 },
+            { title: "Esensialisme Waktu", category: "Produktivitas", desc: "Berhenti sibuk, mulailah produktif. Kerangka kerja memprioritaskan hal esensial.", icon: "hourglass", time: "50 Min", progress: 100 },
+            { title: "Kecerdasan Emosional (EQ)", category: "Mindset", desc: "Seni mengelola stres dan membangun relasi profesional yang bermakna.", icon: "heart", time: "2 Jam", progress: 15 },
+            { title: "Etika & Etiket Modern", category: "Personal Dev", desc: "Membangun impresi pertama yang tak terlupakan di lingkungan high-end.", icon: "coffee", time: "30 Min", progress: 0 },
+            { title: "Pemecahan Masalah Kritis", category: "Leadership", desc: "Kerangka berpikir analitis untuk menghadapi krisis tanpa kepanikan.", icon: "lightbulb", time: "1 Jam", progress: 0 }
+        ];
+
+        function renderCourses() {
+            const container = document.getElementById('course-list');
+            container.innerHTML = '';
+
+            courses.forEach(course => {
+                const isComplete = course.progress === 100;
+                const progressColor = isComplete ? 'bg-brand-navy' : (course.progress > 0 ? 'bg-brand-gold' : 'bg-brand-border');
+                
+                container.innerHTML += `
+                    <div class="bg-white rounded-3xl p-6 shadow-sm border border-brand-border flex flex-col h-full hover:shadow-luxury transition-all duration-300 cursor-pointer group hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-beige flex items-center justify-center border border-brand-border group-hover:bg-brand-navy transition-colors duration-300">
+                                <i data-lucide="${course.icon}" class="w-5 h-5 text-brand-navy group-hover:text-brand-gold"></i>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded bg-brand-beige text-brand-gray">${course.category}</span>
+                        </div>
+                        
+                        <h3 class="font-serif text-xl text-brand-navy mb-2 leading-snug">${course.title}</h3>
+                        <p class="text-sm text-brand-gray mb-8 flex-1 leading-relaxed">${course.desc}</p>
+                        
+                        <div class="mt-auto">
+                            ${isComplete ? 
+                                `<div class="flex items-center gap-2 text-xs font-bold text-brand-navy uppercase tracking-widest bg-brand-beige py-2 px-3 rounded-lg w-fit"><i data-lucide="check-circle" class="w-4 h-4 text-brand-gold"></i> Diselesaikan</div>` : 
+                                `
+                                <div class="flex justify-between text-xs mb-2 font-semibold">
+                                    <span class="text-brand-gray flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> ${course.time}</span>
+                                    <span class="text-brand-navy">${course.progress}%</span>
+                                </div>
+                                <div class="w-full bg-brand-beige rounded-full h-1.5 overflow-hidden">
+                                    <div class="${progressColor} h-full rounded-full transition-all duration-1000" style="width: ${course.progress}%"></div>
+                                </div>
+                                `
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        // 6. Logika Evaluasi (Quiz)
+        const quizData = [
+            {
+                question: "Saat dihadapkan pada tenggat waktu yang ketat dan sumber daya terbatas, pendekatan profesional mana yang mencerminkan kedewasaan?",
+                options: [
+                    "Bekerja lembur setiap hari demi menyelesaikannya sendiri tanpa bantuan.",
+                    "Mengurangi kualitas pekerjaan secara diam-diam agar selesai tepat waktu.",
+                    "Menyusun skala prioritas, mendelegasikan tugas, dan menegosiasikan ekspektasi transparan dengan atasan.",
+                    "Menghindari tanggung jawab dan menyalahkan situasi atau rekan tim."
+                ],
+                correct: 2,
+                feedback: "Profesionalisme elegan diukur dari kemampuan mengelola sumber daya dan komunikasi transparan, bukan sekadar bekerja lebih keras tanpa arah."
+            },
+            {
+                question: "Dalam literasi finansial personal, apa esensi dari prinsip 'Pay Yourself First'?",
+                options: [
+                    "Membeli barang mewah (self-reward) segera setelah menerima gaji.",
+                    "Menyisihkan persentase pendapatan untuk tabungan atau investasi sebelum membayar tagihan gaya hidup.",
+                    "Membayar seluruh hutang kartu kredit sebelum membeli kebutuhan pokok.",
+                    "Menghabiskan anggaran hiburan di awal bulan agar tidak stres."
+                ],
+                correct: 1,
+                feedback: "Konsep ini memastikan masa depan finansial Anda menjadi prioritas mutlak sebelum gaya hidup saat ini menggerus pendapatan Anda."
+            },
+            {
+                question: "Bagaimana cara elegan dalam memberikan kritik membangun (constructive feedback) kepada rekan sejawat?",
+                options: [
+                    "Menyampaikan kesalahan mereka dalam rapat umum agar menjadi pelajaran bagi semua orang.",
+                    "Hanya memberikan pujian dan menghindari topik sensitif agar tidak merusak hubungan kerja.",
+                    "Fokus pada objek/hasil kerja yang spesifik secara privat, bukan menyerang karakter personal, lalu diskusikan solusi bersama.",
+                    "Menyampaikan kritik melalui pesan teks singkat tanpa konteks atau penjelasan rinci."
+                ],
+                correct: 2,
+                feedback: "Kritik berkelas selalu berfokus pada perbaikan sistem/hasil kerja sambil tetap menjaga martabat dan integritas penerima kritik."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        const pointsPerQuestion = 50;
+
+        function startQuiz() {
+            document.getElementById('quiz-intro').classList.add('hidden');
+            document.getElementById('quiz-active').classList.remove('hidden');
+            currentQuestion = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            document.getElementById('quiz-question').innerText = q.question;
+            document.getElementById('quiz-progress-text').innerText = `Skenario ${currentQuestion + 1} / ${quizData.length}`;
+            
+            // Render Indicator Dots
+            let dotsHTML = '';
+            for(let i=0; i<quizData.length; i++) {
+                if(i < currentQuestion) dotsHTML += `<div class="w-2 h-2 rounded-full bg-brand-navy transition-all"></div>`; 
+                else if(i === currentQuestion) dotsHTML += `<div class="w-6 h-2 rounded-full bg-brand-gold transition-all"></div>`; 
+                else dotsHTML += `<div class="w-2 h-2 rounded-full bg-brand-border transition-all"></div>`; 
+            }
+            document.getElementById('quiz-dots').innerHTML = dotsHTML;
+
+            // Render Options
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-5 rounded-2xl border border-brand-border bg-white hover:border-brand-navy hover:shadow-md transition-all duration-300 text-brand-gray hover:text-brand-navy text-sm md:text-base font-medium flex items-start gap-4 group";
+                
+                const letterBox = `<span class="flex-shrink-0 w-6 h-6 rounded bg-brand-beige border border-brand-border text-center text-xs font-bold leading-5 group-hover:bg-brand-navy group-hover:text-white group-hover:border-brand-navy transition-colors flex items-center justify-center">${String.fromCharCode(65 + index)}</span>`;
+                
+                btn.innerHTML = `${letterBox} <span class="pt-0.5">${opt}</span>`;
+                btn.onclick = () => handleAnswer(index);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIndex) {
+            const isCorrect = selectedIndex === quizData[currentQuestion].correct;
+            if (isCorrect) score++;
+
+            // Disable all and highlight
+            const buttons = document.getElementById('quiz-options').children;
+            for(let i=0; i<buttons.length; i++){
+                buttons[i].disabled = true;
+                buttons[i].classList.remove('hover:border-brand-navy', 'hover:shadow-md');
+                if(i === selectedIndex) {
+                     buttons[i].classList.add(isCorrect ? 'border-brand-navy' : 'border-brand-gray', isCorrect ? 'bg-brand-beige' : 'bg-gray-50');
+                     if(isCorrect) buttons[i].querySelector('span').classList.add('bg-brand-navy', 'text-white');
+                }
+            }
+
+            // Next question delay
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizData.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 800);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-active').classList.add('hidden');
+            const resultScreen = document.getElementById('quiz-result');
+            resultScreen.classList.remove('hidden');
+
+            const pointsEarned = score * pointsPerQuestion;
+            document.getElementById('result-score').innerText = `${score}/${quizData.length}`;
+            
+            // Animate Point Counter
+            let currentPointsDisplay = 0;
+            const pointsElement = document.getElementById('result-points');
+            if(pointsEarned > 0) {
+                const interval = setInterval(() => {
+                    if(currentPointsDisplay >= pointsEarned) {
+                        clearInterval(interval);
+                        pointsElement.innerText = pointsEarned;
+                    } else {
+                        currentPointsDisplay += 5;
+                        pointsElement.innerText = currentPointsDisplay;
+                    }
+                }, 15);
+            } else {
+                pointsElement.innerText = "0";
+            }
+            
+            // Set Feedback based on performance
+            let feedbackTitle = "Review Evaluasi";
+            if (score === quizData.length) {
+                feedbackTitle = "Pola Pikir Brilian";
+            } else if (score > 0) {
+                feedbackTitle = "Wawasan Terasah";
+            }
+            
+            // Show feedback from the final question as a takeaway
+            const feedbackHTML = `
+                <p class="font-bold mb-1">${feedbackTitle}</p>
+                <p class="text-xs text-brand-gray">${quizData[quizData.length-1].feedback}</p>
+            `;
+            document.getElementById('result-feedback').innerHTML = feedbackHTML;
+
+            // Update Global State
+            appState.points += pointsEarned;
+            updatePointsUI();
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-active').classList.add('hidden');
+            document.getElementById('quiz-intro').classList.remove('hidden');
+            currentQuestion = 0;
+            score = 0;
+            
+            // If navigating away, reset state
+            if(document.getElementById('view-quiz').classList.contains('block') && currentQuestion > 0){
+                navigate('dashboard');
+            }
+        }
+
+        // 7. On Load Execution
+        window.onload = () => {
+            initProfile();
+            updatePointsUI();
+        }
+
+    </script>
+</body>
+</html>
